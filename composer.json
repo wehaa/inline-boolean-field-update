@@ -1,5 +1,5 @@
 {
-    "name": "wehaa/liveupdate-boolean",
+    "name": "wehaa/inline-boolean-field-update",
     "description": "A Laravel Nova field.",
     "keywords": [
         "laravel",
