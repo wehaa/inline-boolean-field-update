@@ -1,14 +1,12 @@
 <template>
     <div class="relative flex items-stretch">
-        <input
-            :id="field.name + field.id"
-            type="text"
-            class="w-full form-control form-input form-input-bordered live-update"
-            :placeholder="field.name"
+        <checkbox
+            @input="save"
+            :id="field.attribute"
+            :name="field.name"
+            :checked="value"
+            :disabled="isReadonly"
             v-model="value"
-            @blur="save"
-            @keyup.enter="save"
-            :style="'min-width:'+field.minWidth+'px;'"
         />
         <!-- thanks to https://github.com/epartment/nova-unique-ajax-field/blob/master/resources/js/components/FormField.vue -->
         <div class="absolute rotating text-80 flex justify-center items-center pin-y pin-r mr-3" v-show="loading">
@@ -34,7 +32,7 @@ export default {
             if (this.value != this.field.value) {
                 if (!this.loading) {
                     Nova.request().post(
-                        `/live-update/update/${this.resourceName}`,
+                        `/liveupdate-boolean/update/${this.resourceName}`,
                         {
                             id: this.field.id,
                             attribute: this.field.attribute,
@@ -98,3 +96,4 @@ export default {
         animation: rotating 2s linear infinite;
     }
 </style>
+

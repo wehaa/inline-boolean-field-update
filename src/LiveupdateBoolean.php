@@ -1,18 +1,18 @@
 <?php
 
-namespace Wehaa\Liveupdate;
+namespace Wehaa\LiveupdateBoolean;
 
 use Laravel\Nova\Fields\Field;
 use Config;
 
-class Liveupdate extends Field
+class LiveupdateBoolean extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'liveupdate';
+    public $component = 'liveupdate-boolean';
 
     protected function resolveAttribute($resource, $attribute)
     {
@@ -24,10 +24,5 @@ class Liveupdate extends Field
     protected function setResourceId($id)
     {
         return $this->withMeta(['id' => $id, 'nova_path' => Config::get('nova.path')]);
-    }
-
-    public function minWidth($width = 100)
-    {
-        return $this->withMeta(['minWidth' => $width]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wehaa\Liveupdate;
+namespace Wehaa\LiveupdateBoolean;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
@@ -16,14 +16,18 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->booted(function () {
-            $this->routes();
-        });
+        $this->app->booted(
+            function () {
+                $this->routes();
+            }
+        );
 
-        Nova::serving(function (ServingNova $event) {
-            Nova::script('liveupdate', __DIR__ . '/../dist/js/field.js');
-            Nova::style('liveupdate', __DIR__ . '/../dist/css/field.css');
-        });
+        Nova::serving(
+            function (ServingNova $event) {
+                Nova::script('liveupdate-boolean', __DIR__ . '/../dist/js/field.js');
+                Nova::style('liveupdate-boolean', __DIR__ . '/../dist/css/field.css');
+            }
+        );
     }
 
     /**
@@ -47,7 +51,7 @@ class FieldServiceProvider extends ServiceProvider
             return;
         }
         Route::middleware(['nova'])
-            ->prefix('live-update')
+            ->prefix('liveupdate-boolean')
             ->group(__DIR__ . '/../routes/api.php');
     }
 }

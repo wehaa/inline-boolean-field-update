@@ -1,11 +1,11 @@
 <?php
 
-namespace Wehaa\Liveupdate\Http\Controllers;
+namespace Wehaa\LiveupdateBoolean\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class LiveUpdateController extends Controller
+class LiveupdateBooleanController extends Controller
 {
     public function update(NovaRequest $request)
     {
@@ -14,9 +14,11 @@ class LiveUpdateController extends Controller
         $fieldValidationRules = $resourceValidationRules[$request->attribute];
 
         if (!empty($fieldValidationRules)) {
-            $validatedData = $request->validate([
-                'value' => $fieldValidationRules,
-            ]);
+            $validatedData = $request->validate(
+                [
+                    'value' => $fieldValidationRules,
+                ]
+            );
         }
 
         $model = $request->model()->find($request->id);

@@ -1,9 +1,3 @@
 <template>
-    <panel-item :field="field" />
+    <span>This field is only for index, hide from here</span>
 </template>
-
-<script>
-export default {
-    props: ['resource', 'resourceName', 'resourceId', 'field'],
-}
-</script>
