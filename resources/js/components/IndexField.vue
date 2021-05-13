@@ -2,11 +2,10 @@
     <div class="relative flex items-stretch">
         <checkbox
             @input="save"
-            :id="field.attribute"
+            :id="id"
             :name="field.name"
             :checked="value"
             :disabled="isReadonly"
-            v-model="value"
         />
         <!-- thanks to https://github.com/epartment/nova-unique-ajax-field/blob/master/resources/js/components/FormField.vue -->
         <div class="absolute rotating text-80 flex justify-center items-center pin-y pin-r mr-3" v-show="loading">
@@ -22,26 +21,29 @@ export default {
     data() {
         return {
             loading: false,
+            newValue: null,
+            id: this.field.attribute + this.field.id
         }
     },
     mixins: [FormField],
     props: ['resourceName', 'resourceId', 'field'],
     methods: {
         save() {
+            let newValue = document.getElementById(this.id).checked;
             var vm = this;
-            if (this.value != this.field.value) {
+            if (newValue != this.field.value) {
                 if (!this.loading) {
                     Nova.request().post(
                         `/liveupdate-boolean/update/${this.resourceName}`,
                         {
                             id: this.field.id,
                             attribute: this.field.attribute,
-                            value: this.value
+                            value: newValue
                         }
                     )
                     .then (function (response) {
                         vm.loading = false
-                        vm.field.value = vm.value
+                        vm.field.value = vm.newValue
                         vm.$toasted.show('Successfully updated!', { type: 'success' })
                     })
                     .catch (function (error) {
@@ -63,10 +65,10 @@ export default {
             }
         },
         setInitialValue() {
-            this.value = this.field.value || ''
+            this.value = this.field.value || false
         },
         fill(formData) {
-            formData.append(this.field.attribute, this.value || '')
+            formData.append(this.field.value, this.value || false)
         },
         handleChange(value) {
             this.value = value
