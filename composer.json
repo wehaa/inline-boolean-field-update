@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Wehaa\\Liveupdate\\": "src/"
+            "Wehaa\\LiveupdateBoolean\\": "src/"
         }
     },
     "extra": {
