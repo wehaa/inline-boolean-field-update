@@ -31,15 +31,13 @@ export default {
       if (newValue !== this.field.value) {
         if (!this.loading) {
           this.loading = true;
-          Nova.request().post(
-              `/liveupdate-boolean/update/${this.resourceName}`,
+          Nova.request().put(
+              `/nova-api/${this.resourceName}/${this.field.id}/`,
               {
-                id: this.field.id,
-                attribute: this.field.attribute,
-                value: newValue
+                [this.field.attribute]: newValue
               }
           )
-              .then((response) => {
+              .then(() => {
                 this.loading = false
                 this.field.value = this.newValue
                 Nova.success('Successfully updated!')
