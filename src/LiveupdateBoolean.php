@@ -2,10 +2,10 @@
 
 namespace Wehaa\LiveupdateBoolean;
 
-use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Fields\Boolean;
 use Config;
 
-class LiveupdateBoolean extends Field
+class LiveupdateBoolean extends Boolean
 {
     /**
      * The field's component.
@@ -14,15 +14,25 @@ class LiveupdateBoolean extends Field
      */
     public $component = 'liveupdate-boolean';
 
-    protected function resolveAttribute($resource, $attribute)
-    {
+    /**
+     * Resolve the given attribute from the given resource.
+     *
+     * @param  mixed  $resource
+     * @param  string  $attribute
+     * @return bool|null
+     */
+    protected function resolveAttribute($resource, $attribute): ?bool {
         $this->setResourceId(data_get($resource, $resource->getKeyName()));
 
         return parent::resolveAttribute($resource, $attribute);
     }
 
-    protected function setResourceId($id)
-    {
+    /**
+     * @param int|null $id
+     *
+     * @return LiveupdateBoolean
+     */
+    protected function setResourceId(?int $id): self {
         return $this->withMeta(['id' => $id, 'nova_path' => Config::get('nova.path')]);
     }
 }

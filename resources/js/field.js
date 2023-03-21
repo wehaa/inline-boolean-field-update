@@ -1,5 +1,9 @@
-Nova.booting((Vue, router, store) => {
-    Vue.component('index-liveupdate-boolean', require('./components/IndexField'))
-    Vue.component('detail-liveupdate-boolean', require('./components/DetailField'))
-    Vue.component('form-liveupdate-boolean', require('./components/FormField'))
+import IndexField from './components/IndexField'
+import DetailField from './components/DetailField'
+import FormField from './components/FormField'
+
+Nova.booting((app, store) => {
+    app.component('index-liveupdate-boolean', IndexField)
+    app.component('detail-liveupdate-boolean', DetailField)
+    app.component('form-liveupdate-boolean', FormField)
 })
